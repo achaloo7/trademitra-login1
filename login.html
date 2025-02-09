@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Trademitra</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f8f8f8; }
+        .container { width: 350px; margin: 100px auto; padding: 20px; background: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; }
+        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        button { background-color: #28a745; color: #fff; padding: 10px 15px; border: none; cursor: pointer; font-size: 16px; width: 100%; }
+        button:hover { background-color: #218838; }
+        .error { color: red; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="validateLogin()">Login</button>
+        <p class="error" id="error-message"></p>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </div>
+
+    <script>
+        function validateLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            
+            fetch("users.xml")
+                .then(response => response.text())
+                .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+                .then(data => {
+                    let users = data.getElementsByTagName("user");
+                    let validUser = false;
+
+                    for (let i = 0; i < users.length; i++) {
+                        let user = users[i].getElementsByTagName("username")[0].textContent;
+                        let pass = users[i].getElementsByTagName("password")[0].textContent;
+                        
+                        if (username === user && password === pass) {
+                            validUser = true;
+                            break;
+                        }
+                    }
+
+                    if (validUser) {
+                        alert("Login Successful!");
+                        localStorage.setItem("loggedInUser", username);
+                        window.location.href = "dashboard.html";
+                    } else {
+                        document.getElementById("error-message").innerText = "Invalid Username or Password!";
+                    }
+                })
+                .catch(error => console.error("Error loading XML:", error));
+        }
+    </script>
+
+</body>
+</html>
