@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Trademitra</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f8f8f8; }
+        .container { width: 350px; margin: 100px auto; padding: 20px; background: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; }
+        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        button { background-color: #007bff; color: #fff; padding: 10px 15px; border: none; cursor: pointer; font-size: 16px; width: 100%; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Signup</h2>
+        <input type="text" id="new-username" placeholder="Choose a Username">
+        <input type="password" id="new-password" placeholder="Choose a Password">
+        <button onclick="signup()">Sign Up</button>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <script>
+        function signup() {
+            var newUsername = document.getElementById("new-username").value;
+            var newPassword = document.getElementById("new-password").value;
+
+            if (newUsername && newPassword) {
+                alert("Signup Successful! Please login.");
+                window.location.href = "login.html";
+            } else {
+                alert("Please enter a valid username and password.");
+            }
+        }
+    </script>
+
+</body>
+</html>
