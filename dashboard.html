@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Trademitra</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f8f8f8; }
+        .container { width: 350px; margin: 100px auto; padding: 20px; background: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; }
+        .logout-btn { background-color: #dc3545; color: #fff; padding: 10px; border: none; cursor: pointer; width: 100%; }
+        .logout-btn:hover { background-color: #c82333; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <p>You are now logged in.</p>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var user = localStorage.getItem("loggedInUser");
+            if (!user) {
+                window.location.href = "login.html";
+            } else {
+                document.getElementById("user-name").innerText = user;
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+</html>
